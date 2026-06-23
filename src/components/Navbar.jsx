@@ -1,7 +1,13 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import {Link, Navigate, useNavigate} from "react-router-dom"
 
 const Navbar = ({name}) => {
+ const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("users")
+   navigate("/login")
+
+  }
   return (
     <div>
       <nav className="bg-neutral-primary fixed w-full z-20 top-0 start-0 border-b border-border-default shadow-md backdrop-blur-md bg-opacity-95">
@@ -25,6 +31,9 @@ const Navbar = ({name}) => {
               </li>
                 <li>
                 <Link to="/admin" className="block py-2 px-3 text-text-heading rounded hover:text-brand md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 transition-colors duration-200">Admin</Link>
+              </li>
+                <li>
+                <Link to="" className="block py-2 px-3 text-text-heading rounded hover:text-brand md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 transition-colors duration-200" aria-current="page" onClick={logout}>Logout</Link>
               </li>
             </ul>
           </div>

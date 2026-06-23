@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import {Link, Navigate, useNavigate} from "react-router-dom"
   
 
 const Register = () => {
+ const navigate = useNavigate();
 
 let userDetails = {
   name:"",
@@ -15,8 +16,8 @@ const [data,setData] = useState(userDetails)
 
 
   let handleInput = (e) => {
-console.log(e.target.value)
-console.log(e.target.id)
+
+
 let value = e.target.value;
 let id = e.target.id
  setData({...data,[id]:value})
@@ -26,16 +27,28 @@ let id = e.target.id
  
 
 const handleSubmit = (e) => {
-  e.preventDefault();
+e.preventDefault();
+
+if(data.name == "" || data.email == "" || data.password == ""){
+  alert("pls fill all the fields")
+}
+else{
 
 let getData = JSON.parse(localStorage.getItem("users") || "[]")
 let arr = [];
-arr = [getData];
+arr = [...getData];
 arr.push(data)
 
+
+
 localStorage.setItem("users", JSON.stringify(arr))
+alert("Registration success")
+navigate("/login")
+}
 
 }
+
+
 
 
 
