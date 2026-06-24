@@ -32,6 +32,11 @@ else{
       let storeEmail = (val.email)
       let storePassword = (val.password)
       if(storeEmail == email || storePassword == password){
+      localStorage.setItem("loggedInUser",JSON.stringify({
+        role:'employee',email:val.email,name:val.name
+      }))
+
+        
         alert("login successful")
         navigate("/")
       }

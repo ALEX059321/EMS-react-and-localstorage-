@@ -2,6 +2,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Admin = () => {
+
+
+
+
+
+
+
+  
   return (
     <div className="w-full max-w-md p-6 bg-neutral-secondary-soft border border-border-default rounded-lg shadow-xl backdrop-blur-md relative overflow-hidden transition-all duration-300 hover:shadow-brand/10 hover:border-brand/30">
      
