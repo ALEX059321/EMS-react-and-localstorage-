@@ -9,6 +9,7 @@ import Login from './components/Login.jsx'
 import Register from './components/Register.jsx'
 import Admin from './components/Admin.jsx'
 import CreateTask from './components/CreateTask.jsx'
+import TaskList from './components/TaskList.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -21,7 +22,8 @@ createRoot(document.getElementById('root')).render(
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/admin' element={<Admin />} />
-            <Route path='/admins' element={<CreateTask />} />
+            <Route path='/tasks' element={<CreateTask />} />
+              <Route path='/list' element={<TaskList />} />
           </Routes>
         </main>
         <Footer />

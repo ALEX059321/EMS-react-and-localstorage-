@@ -1,10 +1,10 @@
 import { useState } from "react"
 
 
-const CreateTask = (employees,onAssignTask) => {
-  const [employee,setEmployee] = useState();
-  const [title,setTitle] = useState()
-  const [description,setDescription] = useState();
+const CreateTask = ({ employees, onAssignTask }) => {
+  const [employee, setEmployee] = useState('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
 
 const handleSubmit = (e) => {
   e.preventDefault();
@@ -34,56 +34,44 @@ setDescription("")
         <div>
           <label className="block text-sm font-medium text-text-heading mb-1">Employee</label>
           <select className="w-full px-3 py-2 bg-neutral-primary border border-border-default rounded-md text-text-heading text-sm focus:outline-none"
-            required 
-            
-            
-            onChange= {(e) => setEmployee(e.target.value)}>
-              <option value= "">select</option>
-              {/* {employee.map((emp) =>{
-                <option key={emp.email} value={emp.email}>
-                  {emp.name}
-                </option>
-              })} */}
-
-
-               
-         
-
+            required
+            value={employee}
+            onChange={(e) => setEmployee(e.target.value)}>
+            <option value="" disabled>Select an employee</option>
+            {employees?.map((emp) => (
+              <option key={emp.email} value={emp.email}>
+                {emp.name}
+              </option>
+            ))}
           </select>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-text-heading mb-1" 
-          value={title} 
-          onChange={((e) => setTitle(e.target.value))}
-          
-          
-          >Task Title</label>
+          <label className="block text-sm font-medium text-text-heading mb-1">
+            Task Title
+          </label>
           <input
             type="text"
             placeholder="What needs to be done?"
-           
-           
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             className="w-full px-3 py-2 bg-neutral-primary border border-border-default rounded-md text-text-heading text-sm focus:outline-none"
             required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-text-heading mb-1"
-          value={description}
-          onChange={((e) =>setDescription(e.target.value))}
-          
-          
-          >Description</label>
+          <label className="block text-sm font-medium text-text-heading mb-1">
+            Description
+          </label>
           <textarea
             placeholder="Task description..."
-           
-           
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             rows="3"
             className="w-full px-3 py-2 bg-neutral-primary border border-border-default rounded-md text-text-heading text-sm focus:outline-none"
             required
-                 />
+          />
         </div>
 
         <button
