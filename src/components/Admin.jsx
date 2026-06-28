@@ -1,15 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const Admin = () => {
+const [email,setEmail] = useState('');
+const [password,setPassword] = useState('');
+const [isAdminlogged,setIsAdminLoggedIn] = useState(false);
+const [emloyee,setEmployee] = useState([]);
+const [tasks,setTasks] = useState([]);
+const [msg,setMsg] = useState('');
+
+
+const handleInput = (e) => {
+const value = e.target.value
+const id = e.target.id
+
+if('email' === id){
+  setEmail(value)
+}
+if('password' === id){
+  setPassword(value)}}
+
+ const handleSubmit = (e) => {
+  e.preventDefault()
+
+if((email == "admin@gmail.com" && password == "admin123")||(email === 'admin@gmail.com' && password === 'admin')){
+setIsAdminLoggedIn(true);
+setEmployee(JSON.parse(localStorage.getItem('users') || '[]'))
+setTasks(JSON.parse(localStorage.getItem('tasks')|| '[]'))
+
+alert("Admin loggedIn successfully")
+}
+else{
+return setMsg("invalid credentials")
+}
+
+ }
 
 
 
 
-
-
-
-  
   return (
     <div className="w-full max-w-md p-6 bg-neutral-secondary-soft border border-border-default rounded-lg shadow-xl backdrop-blur-md relative overflow-hidden transition-all duration-300 hover:shadow-brand/10 hover:border-brand/30">
      
@@ -17,9 +46,10 @@ const Admin = () => {
       
       <div className="mb-8 text-center">
         <h2 className="text-3xl font-extrabold text-text-heading tracking-tight">Admin </h2>
+        <p>{msg}</p>
       </div>
 
-      <form className="space-y-6">
+      <form className="space-y-6" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-text-heading mb-2">
             Email Address
@@ -28,6 +58,7 @@ const Admin = () => {
             id="email"
             type="email"
             placeholder="Enter ur email"
+            onChange={handleInput}
             className="w-full px-4 py-2.5 bg-neutral-primary border border-border-default rounded-md text-text-heading placeholder-text-body/50 focus:outline-none focus:ring-2 focus:ring-brand/50 focus:border-brand transition-all duration-200"
             required
           />
@@ -41,6 +72,7 @@ const Admin = () => {
             id="password"
             type="password"
             placeholder="••••••••"
+             onChange={handleInput}
             className="w-full px-4 py-2.5 bg-neutral-primary border border-border-default rounded-md text-text-heading placeholder-text-body/50 focus:outline-none focus:ring-2 focus:ring-brand/50 focus:border-brand transition-all duration-200"
             required
           />
@@ -56,15 +88,7 @@ const Admin = () => {
       </form>
 
       <div className="mt-8 text-center">
-        <p className="text-sm text-text-body">
-          New user?{' '}
-          <Link
-            to="/register"
-            className="font-semibold text-fg-brand hover:text-brand hover:underline transition-colors duration-200"
-          >
-            click here
-          </Link>
-        </p>
+       
       </div>
     </div>
   )
