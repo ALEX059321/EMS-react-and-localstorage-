@@ -36,9 +36,65 @@ return setMsg("invalid credentials")
 
  }
 
+ 
+if(isAdminlogged){ 
+return
+const handleAssignTask = ({employeeEmail,title,description}) => {
+  const updateTasks = [...tasks,{id:'tasks'+ Date.now(),
+  employeeEmail,title,description,completed:false}]
+ localStorage.setItem('Tasks', JSON.stringify(updateTasks))
+ setTasks(updateTasks)
+
+}
+
+const handleDeleteTask = (taskId) => {
+  if(window.confirm("delete this task?")){
+    const updatedTask = tasks.filter((t) => {
+      t.id = taskId
+      localStorage.setItem("Tasks",JSON.stringify(updatedTask))
+    })
+  }
+}
+}
 
 
 
+      <div className="w-full max-w-5xl mx-auto space-y-6">
+        <div className="bg-neutral-secondary-soft border border-border-default rounded-lg p-6 shadow-md flex justify-between items-center">
+          <div>
+            <h1 className="text-2xl font-bold text-text-heading">Admin Dashboard</h1>
+          </div>
+          <div className="flex gap-4">
+            <div className="bg-neutral-primary border border-border-default px-4 py-2 rounded-md">
+              <span className="block text-xs text-text-body font-medium uppercase">Employees</span>
+              <span className='text-xl font-bold text-text-heading'>{employees.length}</span>
+              <CreateTask employees={employees} onAssignTask={handleAssignTask} />
+             
+            </div>
+            <div className="bg-neutral-primary border border-border-default px-4 py-2 rounded-md">
+              <span className="block text-xs text-text-body font-medium uppercase">Tasks</span>
+               <span className='text-xl font-bold text-text-heading'>{tasks.length}</span>
+               
+               
+
+            
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="md:col-span-1">
+            
+            
+          </div>
+          <div className="md:col-span-2">
+
+
+            <CreateTask employees={employees} onAssignTask={handleAssignTask}/>
+            <EmployeeList employees={employees} tasks={tasks} onDeleteTask={handleDeleteTask} />
+          </div>
+        </div>
+      </div> 
   return (
     <div className="w-full max-w-md p-6 bg-neutral-secondary-soft border border-border-default rounded-lg shadow-xl backdrop-blur-md relative overflow-hidden transition-all duration-300 hover:shadow-brand/10 hover:border-brand/30">
      
