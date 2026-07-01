@@ -1,106 +1,29 @@
-import React, { useEffect, useState } from 'react'
-import { use } from 'react';
-import { useNavigate } from 'react-router-dom';
-import allTasks from './components/TaskList'
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar.jsx'
+import Footer from './components/Footer.jsx'
+import Login from './components/Login.jsx'
+import Register from './components/Register.jsx'
+import Admin from './components/Admin.jsx'
+import CreateTask from './components/CreateTask.jsx'
+import TaskList from './components/TaskList.jsx'
+import EmployeeDashboard from './components/EmployeeDashboard.jsx'
+
 const App = () => {
-
-  const navigate = useNavigate();
-const [tasks,setTasks] = useState();
-const [session,setSession] = useState([])
-
-
-
-useEffect(() => {
-  const currentSession = JSON.parse(localStorage.getItem('isloggedin'))
-if(!currentSession){
-  navigate('/login')
-  return
-}
-
-if(currentSession.role === 'admin'){
-  navigate('/admin')
-  return}
-setSession(currentSession)
-
-// specific assignination
-
-const storedTasks = JSON.parse(localStorage.getItem("tasks") || '[]')
-setTasks(storedTasks.filter((t) => {
-  t.employeeEmail === currentSession.email
-  navigate('/')
-}))})
-
-const handleToggle = (taskId) => {
-  const allTasks = JSON.parse(localStorage.getItem('tasks') || '[]')
-}
-
-const updatedtasks = allTasks.map((tasks) => {
-  if(tasks.id == taskId){
-    return {...tasks, completed: !tasks.completed}
-  } return tasks
-
-localStorage.setItem('tasks', JSON.stringify(updatedtasks))
-setTasks(updatedtasks.filter((t) => {
-   t.employeeEmail === session?.email
-})
-
-
-)
-
-if(!session) return null
-
-})
-
-
-
-
-
-
-
-
   return (
-    <div className='w-full max-w-4xl mx-auto px-4'>
-      
-{/* //greeting */}
-
-<div className="bg-neutral-secondary-soft border border-border-default rounded-lg p-6 shadow-md">
-
-<h1 className='text-2xl font-bold text-text-heading'>welcome
-<span className='text-rounded'>{session.name}</span>
-</h1>
-<p className='bg-neutral-secondary-soft border-border-default rounded-lg p-5 shadow-md'>hello
- <h2 className='text-xl font-bold text-text-heading mb-4'>your tasks</h2>
-
-
-{/* tasks */}
-<tasks tasks = {tasks} toggleComplete = {handleToggle}/>
-
-
-
-
-
-
-</p>
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <div className="flex flex-col min-h-screen bg-neutral-primary text-text-body">
+      <Navbar name="EMS" />
+      <main className="flex-grow pt-28 pb-12 px-4 flex items-center justify-center">
+        <Routes>
+          <Route path='/' element={<EmployeeDashboard />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/admin' element={<Admin />} />
+          <Route path='/tasks' element={<CreateTask />} />
+          <Route path='/list' element={<TaskList />} />
+        </Routes>
+      </main>
+      <Footer />
     </div>
   )
 }
